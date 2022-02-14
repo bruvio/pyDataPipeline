@@ -29,7 +29,7 @@ jobs:
       - name: Install local registry
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-              echo "$((Get-Item ~).FullName)" | Out-File -FilePath $env:GITHUB_PATH -Encoding utf8 -Append
+              
               curl -fsSL https://data.scrc.uk/static/localregistry.sh |  bash -s -- -b main
           else 
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
@@ -49,7 +49,13 @@ jobs:
           repository: FAIRDataPipeline/pySimpleModel
           path: pySimpleModel
       - name: Move pySimpleModel
-        run: mv pySimpleModel ../pySimpleModel
+        run: |
+          if [ "$RUNNER_OS" == "Windows" ]; then
+              move pySimpleModel ../pySimpleModel
+          else 
+              mv pySimpleModel ../pySimpleModel
+          fi
+        shell: bash
       - name: Run Tests
         run: |
          if [ "$RUNNER_OS" == "Windows" ]; then
