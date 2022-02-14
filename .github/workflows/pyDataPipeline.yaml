@@ -29,7 +29,7 @@ jobs:
       - name: Install local registry
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-              choco install graphviz
+              curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           else 
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
@@ -51,6 +51,18 @@ jobs:
         run: mv pySimpleModel ../pySimpleModel
       - name: Run Tests
         run: |
+         if [ "$RUNNER_OS" == "Windows" ]; then
+          poetry install
+          .venv\Scripts\activate.bat
+          pip install fair-cli
+          pip install ../pySimpleModel
+          fair init --ci
+          fair registry start
+          fair pull data_pipeline_api/ext/SEIRSconfig.yaml
+          fair run data_pipeline_api/ext/SEIRSconfig.yaml
+
+          python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
+         else
           poetry install
           source .venv/bin/activate
           pip install fair-cli
@@ -61,6 +73,8 @@ jobs:
           fair run data_pipeline_api/ext/SEIRSconfig.yaml
 
           python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
+         
+        
       - uses: codecov/codecov-action@v2
         with:
           token: ${{ secrets.CODECOV_TOKEN }}
