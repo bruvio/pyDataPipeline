@@ -29,7 +29,7 @@ jobs:
       - name: Install local registry
         run: |
           if [ "$RUNNER_OS" == "Windows" ]; then
-              curl -fsSL https://data.scrc.uk/static/localregistry.sh | bash  main
+              curl -fsSL https://data.scrc.uk/static/localregistry.sh |  main
           else 
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
