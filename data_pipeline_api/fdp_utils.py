@@ -68,7 +68,7 @@ def get_entry(
 
     if url[-1] != "/":
         url += "/"
-    url += endpoint + "/?"
+    url += f'{endpoint}/?'
     _query = [f"{k}={v}" for k, v in query.items()]
     url += "&".join(_query)
     response = requests.get(url, headers=headers)
@@ -103,7 +103,7 @@ def get_entity(
 
     if url[-1] != "/":
         url += "/"
-    url += endpoint + "/" + str(id)
+    url += f'{endpoint}/' + str(id)
     response = requests.get(url, headers=headers)
     if response.status_code != 200:
         raise ValueError(
@@ -204,9 +204,9 @@ def get_headers(
     Returns:
         |   dict: a dictionary of appropriate headers to be added to a request
     """
-    headers = {"Accept": "application/json; version=" + api_version}
+    headers = {"Accept": f'application/json; version={api_version}'}
     if token:
-        headers["Authorization"] = "token " + token
+        headers["Authorization"] = f'token {token}'
     if request_type == "post":
         headers["Content-Type"] = "application/json"
     return headers
@@ -226,7 +226,7 @@ def post_storage_root(
     if "local" in data and data["local"]:
         data["root"] = "file://" + data["root"]
     if data["root"][-1] != "/":
-        data["root"] = data["root"] + "/"
+        data["root"] = f'{data["root"]}/'
     return post_entry(url, "storage_root", data, token, api_version)
 
 

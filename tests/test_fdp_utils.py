@@ -164,7 +164,7 @@ def test_get_headers() -> None:
 @pytest.mark.utilities
 def test_get_headers_with_token(token: str) -> None:
     headers = fdp_utils.get_headers(token=token)
-    assert headers["Authorization"] == "token " + token
+    assert headers["Authorization"] == f'token {token}'
 
 
 @pytest.mark.utilities
@@ -417,9 +417,7 @@ def test_patch_entry(
 def test_patch_entry_non_200(url: str, token: str) -> None:
     with pytest.raises(Exception):
         fdp_utils.patch_entry(
-            url=url + "/api/users/1",
-            data={"name": "New Name"},
-            token=token,
+            url=f'{url}/api/users/1', data={"name": "New Name"}, token=token
         )
 
 
