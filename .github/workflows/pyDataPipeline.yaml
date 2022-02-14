@@ -17,8 +17,14 @@ jobs:
           python-version: ${{ matrix.python }}
           architecture: "x64"
       - name: Install graphviz
+        run: winget install graphviz
+        if : matrix.os == 'macos-latest'
+      - name: Install graphviz
         run: brew install graphviz
- 
+        if : matrix.os == 'macos-latest'
+      - name: Install graphviz
+        run: sudo apt-get install graphviz
+        if : runner.os  == 'Linux'
       - name: Install local registry
         run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
       - name: Install Required
