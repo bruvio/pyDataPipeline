@@ -33,8 +33,7 @@ jobs:
         if : runner.os=='Darwin'        
       - name: Install local registry
         run: |
-          choco install ubuntu
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
+          curl -fsSL https://data.scrc.uk/static/localregistry.sh | shell  main
         if : runner.os  == 'Windows'
        
       - name: Install Required
