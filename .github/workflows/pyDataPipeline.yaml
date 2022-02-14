@@ -27,7 +27,10 @@ jobs:
         if : runner.os  == 'Linux'
       - name: Install local registry
         run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
-        if : runner.os  == 'Linux' or runner.os=='Darwin'
+        if : runner.os  == 'Linux'
+      - name: Install local registry
+        run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
+        if : runner.os=='Darwin'        
       - name: Install local registry
         run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | bash -s -- -b main
         if : runner.os  == 'Windows'
