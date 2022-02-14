@@ -16,26 +16,24 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           architecture: "x64"
-      - name: Install graphviz
-        run: choco install graphviz
-        if : runner.os == 'Windows'
-      - name: Install graphviz
-        run: brew install graphviz
-        if : runner.os == 'Darwin'
-      - name: Install graphviz
-        run: sudo apt-get install graphviz
-        if : runner.os  == 'Linux'
-      - name: Install local registry
-        run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
-        if : runner.os  == 'Linux'
-      - name: Install local registry
-        run: curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
-        if : runner.os=='Darwin'        
+       - name: Install graphviz  
+         run: |
+         if [ "$RUNNER_OS" == "Linux" ]; then
+              sudo apt-get install graphviz
+         elif [ "$RUNNER_OS" == "Windows" ]; then
+              choco install graphviz
+         elif [ "$RUNNER_OS" == "Darwin" ]; then
+              brew install graphviz
+         fi
+        shell: bash
       - name: Install local registry
         run: |
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh | shell  main
-        if : runner.os  == 'Windows'
-       
+         if [ "$RUNNER_OS" == "Windows" ]; then
+              choco install graphviz
+         else 
+              curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
+         fi
+        shell: bash
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
