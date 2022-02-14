@@ -16,8 +16,8 @@ jobs:
         with:
           python-version: ${{ matrix.python }}
           architecture: "x64"
-       - name: Install graphviz  
-         run: |
+      - name: Install graphviz  
+        run: |
           if [ "$RUNNER_OS" == "Linux" ]; then
               sudo apt-get install graphviz
           elif [ "$RUNNER_OS" == "Windows" ]; then
