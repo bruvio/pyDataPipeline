@@ -29,15 +29,13 @@ jobs:
       - name: Install local registry
         run: |
           if [ "$RUNNER_OS" != "Windows" ]; then
-              curl -fsSL https://data.scrc.uk/static/localregistry.sh  /bin/bash -s -- -b main
+              curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
         shell: bash
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh >> $GITHUB_ENV
-          echo $HOME
-          bash localregistry.sh -s -b main  
+          curl -fsSL https://data.scrc.uk/static/localregistry.sh | /usr/bin/bash -s -- -b main
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
