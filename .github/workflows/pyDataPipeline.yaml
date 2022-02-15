@@ -36,8 +36,18 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           choco install cygwin
-          choco install git.install
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh | bash -s -- -b main
+          INSTALL_DIR=$HOME/.fair
+          export FAIR_HOME="$([[ $INSTALL_DIR = /* ]] && echo $INSTALL_DIR || echo $PWD/${INSTALL_DIR#./})/registry"
+          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main "$FAIR_HOME" > /dev/null 2>&1
+          python3 -m venv "$FAIR_HOME"/venv
+          "$FAIR_HOME"/venv/Scripts/activate.bat
+          python -m pip install --upgrade pip wheel
+          python -m pip install -r "$FAIR_HOME"/local-requirements.txt
+          export DJANGO_SETTINGS_MODULE="drams.local-settings"
+          export DJANGO_SUPERUSER_USERNAME=admin
+          export DJANGO_SUPERUSER_PASSWORD=admin
+          cd "$FAIR_HOME"/scripts || exit
+          ./rebuild-local.sh
         shell: bash
       - name: Install Required
         run: brew install memcached
