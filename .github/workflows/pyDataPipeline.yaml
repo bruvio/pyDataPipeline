@@ -47,12 +47,7 @@ jobs:
           path: pySimpleModel
       - name: Move pySimpleModel
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
-              move pySimpleModel ../pySimpleModel
-          else 
               mv pySimpleModel ../pySimpleModel
-          fi
-        shell: bash
       - name: Run Tests
         run: |
          if [ "$RUNNER_OS" == "Windows" ]; then
