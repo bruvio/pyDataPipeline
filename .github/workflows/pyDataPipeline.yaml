@@ -34,7 +34,7 @@ jobs:
         shell: bash
       - name: Install local registry on Windows
         run: |
-          if [ "$RUNNER_OS" == "Windows" ]; then
+          if [ ${{ runner.os }} == "Windows" ]; then
               curl -fsSL https://data.scrc.uk/static/localregistry.sh  
               bash localregistry.sh -s -b main
           fi
