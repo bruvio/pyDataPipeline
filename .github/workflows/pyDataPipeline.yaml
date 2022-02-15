@@ -37,8 +37,8 @@ jobs:
         run: |
           choco install cygwin
           INSTALL_DIR=$HOME/.fair
-          export FAIR_HOME="$([[ $INSTALL_DIR = /* ]] && echo $INSTALL_DIR || echo $PWD/${INSTALL_DIR#./})/registry"
-          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main "$FAIR_HOME" > /dev/null 2>&1
+          FAIR_HOME=$INSTALL_DIR/registry
+          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main "$FAIR_HOME"
           python3 -m venv "$FAIR_HOME"/venv
           "$FAIR_HOME"/venv/Scripts/activate.bat
           python -m pip install --upgrade pip wheel
