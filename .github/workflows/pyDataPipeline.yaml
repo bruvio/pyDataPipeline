@@ -85,7 +85,7 @@ jobs:
           fair run data_pipeline_api/ext/SEIRSconfig.yaml
 
           python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
-         
+         fi
         
       - uses: codecov/codecov-action@v2
         with:
