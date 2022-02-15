@@ -48,9 +48,8 @@ jobs:
       - name: Move pySimpleModel
         run: |
               mv pySimpleModel ../pySimpleModel
-      - name: Run Tests
+      - name: Run Tests on Windows
         run: |
-         if [ "$RUNNER_OS" == "Windows" ]; then
           poetry install
           .venv\Scripts\activate.bat
           pip install fair-cli
@@ -61,7 +60,8 @@ jobs:
           fair run data_pipeline_api/ext/SEIRSconfig.yaml
 
           python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
-         else
+      - name: Run Tests on other OS
+        run: |
           poetry install
           source .venv/bin/activate
           pip install fair-cli
@@ -72,7 +72,7 @@ jobs:
           fair run data_pipeline_api/ext/SEIRSconfig.yaml
 
           python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
-         fi
+        if: matrix.os == 'macos-latest' || matrix.os == 'ubuntu-latest'
         
       - uses: codecov/codecov-action@v2
         with:
