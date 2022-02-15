@@ -36,7 +36,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           curl.exe -fsSL https://data.scrc.uk/static/localregistry.sh > $HOME\localregistry.sh
-          powershell.exe $HOME\localregistry.sh -s -b main
+          powershell.exe $HOME\localregistry.sh -s -- -b main
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
@@ -56,8 +56,7 @@ jobs:
       - name: Run Tests on Windows
         run: |
           poetry install
-          source \$VENV
-          # .venv\Scripts\activate.bat
+          .venv\Scripts\activate.bat
           pip install fair-cli
           pip install ../pySimpleModel
           fair init --ci
