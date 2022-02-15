@@ -35,8 +35,8 @@ jobs:
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh > $HOME\localregistry.sh
-          powershell $HOME\localregistry.sh -s -- -b main
+          choco install cygwin
+          curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
