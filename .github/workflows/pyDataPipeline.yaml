@@ -36,6 +36,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           choco install cygwin
+          choco install git.install
           curl -fsSL https://data.scrc.uk/static/localregistry.sh | bash -s -- -b main
         shell: bash
       - name: Install Required
