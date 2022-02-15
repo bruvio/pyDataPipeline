@@ -36,7 +36,8 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           choco install cygwin
-          curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
+          curl -fsSL https://data.scrc.uk/static/localregistry.sh | bash -s -- -b main
+        shell: bash
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
