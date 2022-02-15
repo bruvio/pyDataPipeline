@@ -36,6 +36,7 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
           curl.exe -fsSL https://data.scrc.uk/static/localregistry.sh > $HOME\localregistry.sh
+          chmod +x $HOME\localregistry.sh
           powershell.exe $HOME\localregistry.sh -s -- -b main
       - name: Install Required
         run: brew install memcached
