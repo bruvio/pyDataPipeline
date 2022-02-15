@@ -32,6 +32,10 @@ jobs:
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
         shell: bash
+      - name: install local registry on windows
+        if: matrix.os == 'windows-latest'
+        run: |
+          curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main  
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
@@ -60,6 +64,7 @@ jobs:
           fair run data_pipeline_api/ext/SEIRSconfig.yaml
 
           python3 -m poetry run pytest --cov=data_pipeline_api  --cov-report=xml --cov-report=term -s tests/
+        if: matrix.os == 'windows-latest'
       - name: Run Tests on other OS
         run: |
           poetry install
