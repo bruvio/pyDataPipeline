@@ -37,7 +37,6 @@ jobs:
         run: |
           curl -fsSL https://data.scrc.uk/static/localregistry.sh >> $GITHUB_ENV
           echo $HOME
-          echo dir($HOMW)
           bash $GITHUB_ENV -s -b main  
       - name: Install Required
         run: brew install memcached
