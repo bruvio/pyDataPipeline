@@ -37,7 +37,7 @@ jobs:
         run: |
           curl -fsSL https://data.scrc.uk/static/localregistry.sh >> $GITHUB_ENV
           echo $HOME
-          bash $GITHUB_ENV -s -b main  
+          bash localregistry.sh -s -b main  
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
