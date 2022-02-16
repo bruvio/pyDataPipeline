@@ -42,11 +42,11 @@ jobs:
         if: matrix.os == 'windows-latest'
         run: |
               mkdir ..\.fair\registry
-              mv data-registry\*.* ..\.fair\registry
+              Move-Item -Path "data-registry\*" -Destination "../.fair/registry"
+              #move data-registry\*.* ..\.fair\registry
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          dir -h
           python3 -m venv ../.fair/registry/venv
           python -m pip install --upgrade pip wheel
           python -m pip install -r ..\.fair/registry/local-requirements.txt
