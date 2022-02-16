@@ -38,16 +38,16 @@ jobs:
           choco install cygwin
           $Env:install_dir="$HOME/.fair"
           $fair_dir = "$env:install_dir/registry"
-          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main "$fair_dir"
-          python3 -m venv $fair_dir/venv
-          $fair_dir\venv\Scripts\activate.bat
-          python -m pip install --upgrade pip wheel
-          python -m pip install -r $fair_dir/local-requirements.txt
-          export DJANGO_SETTINGS_MODULE="drams.local-settings"
-          export DJANGO_SUPERUSER_USERNAME=admin
-          export DJANGO_SUPERUSER_PASSWORD=admin
-          cd $fair_dir/scripts || exit
-          ./rebuild-local.sh
+          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
+          #python3 -m venv $fair_dir/venv
+          #$fair_dir\venv\Scripts\activate.bat
+          #python -m pip install --upgrade pip wheel
+          #python -m pip install -r $fair_dir/local-requirements.txt
+          #export DJANGO_SETTINGS_MODULE="drams.local-settings"
+          #export DJANGO_SUPERUSER_USERNAME=admin
+          #export DJANGO_SUPERUSER_PASSWORD=admin
+          #cd $fair_dir/scripts || exit
+          #./rebuild-local.sh
         shell: bash
       - name: Install Required
         run: brew install memcached
