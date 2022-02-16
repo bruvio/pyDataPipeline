@@ -32,15 +32,25 @@ jobs:
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
         shell: bash
+      - name: Checkout data-registry
+        uses: actions/checkout@v2
+        with:
+          repository: FAIRDataPipeline/data-registry
+          path: .fair/registry
+        if: matrix.os == 'windows-latest'
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          #choco install cygwin
-          $Env:install_dir="$HOME/.fair"
-          md $HOME/.fair
-          md $HOME/.fair/registry
-          $fair_dir = "$env:install_dir/registry"
-          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
+          python3 -m venv ./fair/registry/venv
+          .fair\registry\venv\Scripts\activate.bat
+          python -m pip install --upgrade pip wheel
+          python -m pip install -r .fair/registry/local-requirements.txt
+          export DJANGO_SETTINGS_MODULE="drams.local-settings"
+          export DJANGO_SUPERUSER_USERNAME=admin
+          export DJANGO_SUPERUSER_PASSWORD=admin
+          cd .fair/registry/scripts || exit
+          ./rebuild-local.sh
+
         shell: bash
       - name: Install Required
         run: brew install memcached
