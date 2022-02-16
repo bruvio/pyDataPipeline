@@ -35,10 +35,10 @@ jobs:
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          choco install cygwin
+          #choco install cygwin
           $Env:install_dir="$HOME/.fair"
           $fair_dir = "$env:install_dir/registry"
-          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
+          #git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
         shell: bash
       - name: Install Required
         run: brew install memcached
