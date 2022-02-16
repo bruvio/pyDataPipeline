@@ -32,15 +32,10 @@ jobs:
               curl -fsSL https://data.scrc.uk/static/localregistry.sh | /bin/bash -s -- -b main
           fi
         shell: bash
-      - name: Checkout data-registry
-        uses: actions/checkout@v2
-        with:
-          repository: FAIRDataPipeline/data-registry
-          path: $HOME/.fair/registry
-        if: matrix.os == 'windows-latest'
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
+          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $HOME/.fair/registry
           python3 -m venv $HOME/./fair/registry/venv
         shell: bash
       - name: Install Required
