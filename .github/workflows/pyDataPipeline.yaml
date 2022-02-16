@@ -37,8 +37,10 @@ jobs:
         run: |
           #choco install cygwin
           $Env:install_dir="$HOME/.fair"
+          md $HOME/.fair
+          md $HOME/.fair/registry
           $fair_dir = "$env:install_dir/registry"
-          #git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
+          git clone https://github.com/FAIRDataPipeline/data-registry.git -b main $fair_dir
         shell: bash
       - name: Install Required
         run: brew install memcached
