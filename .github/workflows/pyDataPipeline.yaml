@@ -46,7 +46,7 @@ jobs:
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          python3 -m venv ../.fair/registry/venv
+          python3 -m venv .fair/registry/venv
           .fair\registry\venv\Scripts\activate.bat
           python -m pip install --upgrade pip wheel
           python -m pip install -r ../fair/registry/local-requirements.txt
