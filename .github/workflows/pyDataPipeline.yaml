@@ -53,7 +53,8 @@ jobs:
           $env:DJANGO_SUPERUSER_USERNAME="admin"
           $env:DJANGO_SUPERUSER_PASSWORD="admin"
           cd $HOME\.fair\registry\scripts || exit
-          .\rebuild-local.sh
+          bash .\rebuild-local.sh
+        shell: bash
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
