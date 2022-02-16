@@ -41,19 +41,18 @@ jobs:
       - name: Move registry
         if: matrix.os == 'windows-latest'
         run: |
-              mkdir ..\.fair\registry
-              Move-Item -Path "data-registry\*" -Destination "../.fair/registry"
-              #move data-registry\*.* ..\.fair\registry
+              mkdir $HOME\.fair\registry
+              Move-Item -Path "data-registry\*" -Destination "$HOME/.fair/registry"
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          python3 -m venv ../.fair/registry/venv
+          python3 -m venv $HOME/.fair/registry/venv
           python -m pip install --upgrade pip wheel
-          python -m pip install -r ..\.fair/registry/local-requirements.txt
+          python -m pip install -r $HOME/.fair/registry/local-requirements.txt
           $env:DJANGO_SETTINGS_MODULE="drams.local-settings"
           $env:DJANGO_SUPERUSER_USERNAME="admin"
           $env:DJANGO_SUPERUSER_PASSWORD="admin"
-          cd ..\.fair\registry\scripts || exit
+          cd $HOME\.fair\registry\scripts || exit
           .\rebuild-local.sh
       - name: Install Required
         run: brew install memcached
