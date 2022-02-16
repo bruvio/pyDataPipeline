@@ -53,8 +53,8 @@ jobs:
           $env:DJANGO_SETTINGS_MODULE="drams.local-settings"
           $env:DJANGO_SUPERUSER_USERNAME="admin"
           $env:DJANGO_SUPERUSER_PASSWORD="admin"
-          cd ..\.fair/registry/scripts || exit
-          ./rebuild-local.sh
+          cd ..\.fair\registry\scripts || exit
+          .\rebuild-local.sh
       - name: Install Required
         run: brew install memcached
         if: matrix.os == 'macos-latest'
