@@ -36,19 +36,19 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: FAIRDataPipeline/data-registry
-          path: .fair/registry
+          path: $HOME/.fair/registry
         if: matrix.os == 'windows-latest'
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
-          python3 -m venv ./fair/registry/venv
-          .fair\registry\venv\Scripts\activate.bat
+          python3 -m venv $HOME/./fair/registry/venv
+          $HOME\.fair\registry\venv\Scripts\activate.bat
           python -m pip install --upgrade pip wheel
-          python -m pip install -r .fair/registry/local-requirements.txt
+          python -m pip install -r $HOME/.fair/registry/local-requirements.txt
           export DJANGO_SETTINGS_MODULE="drams.local-settings"
           export DJANGO_SUPERUSER_USERNAME=admin
           export DJANGO_SUPERUSER_PASSWORD=admin
-          cd .fair/registry/scripts || exit
+          cd $HOME/.fair/registry/scripts || exit
           ./rebuild-local.sh
 
         shell: bash
