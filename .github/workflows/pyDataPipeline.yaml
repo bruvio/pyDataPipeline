@@ -37,7 +37,7 @@ jobs:
         run: |
           choco install cygwin
           INSTALL_DIR=$HOME\.fair
-          FAIR_HOME=$INSTALL_DIR/registry
+          FAIR_HOME=$INSTALL_DIR\registry
           git clone https://github.com/FAIRDataPipeline/data-registry.git -b main "$FAIR_HOME"
           python3 -m venv "$FAIR_HOME"\venv
           "$FAIR_HOME"\venv\Scripts\activate.bat
