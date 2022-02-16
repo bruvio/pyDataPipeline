@@ -37,11 +37,11 @@ jobs:
         uses: actions/checkout@v2
         with:
           repository: FAIRDataPipeline/data-registry
-          path: registry
+          path: data-registry
       - name: Move registry
         if: matrix.os == 'windows-latest'
         run: |
-              mv registry ../.fair/registry
+              mv data-registry ...\.fair\registry
       - name: install local registry on windows
         if: matrix.os == 'windows-latest'
         run: |
