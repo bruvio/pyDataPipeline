@@ -50,9 +50,9 @@ jobs:
           python3 -m venv ../.fair/registry/venv
           python -m pip install --upgrade pip wheel
           python -m pip install -r ..\.fair/registry/local-requirements.txt
-          export DJANGO_SETTINGS_MODULE="drams.local-settings"
-          export DJANGO_SUPERUSER_USERNAME=admin
-          export DJANGO_SUPERUSER_PASSWORD=admin
+          $env:DJANGO_SETTINGS_MODULE="drams.local-settings"
+          $env:DJANGO_SUPERUSER_USERNAME="admin"
+          $env:DJANGO_SUPERUSER_PASSWORD="admin"
           cd ..\.fair/registry/scripts || exit
           ./rebuild-local.sh
       - name: Install Required
