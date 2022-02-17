@@ -91,19 +91,16 @@ def initialise(token: str, config: str, script: str) -> dict:
     )
     config_filetype_url = config_filetype_response["url"]
 
-    # Get user for registry admin account
-    results = fdp_utils.get_entry(
+    if results := fdp_utils.get_entry(
         url=registry_url,
         endpoint="users",
         query={"username": "admin"},
         token=token,
         api_version=api_version,
-    )
-
-    if not results:
-        raise IndexError(f"list {results} empty")
-    else:
+    ):
         user = fdp_utils.get_first_entry(results)
+    else:
+        raise IndexError(f"list {results} empty")
     # Check users exists
     if not user:
         raise ValueError(
@@ -113,17 +110,15 @@ def initialise(token: str, config: str, script: str) -> dict:
 
     user_url = user["url"]
     user_id = fdp_utils.extract_id(user_url)
-    # Get author(s)
-    results = fdp_utils.get_entry(
+    if results := fdp_utils.get_entry(
         url=registry_url,
         endpoint="user_author",
         query={"user": user_id},
         api_version=api_version,
-    )
-    if not results:
-        raise IndexError(f"list {results} empty")
-    else:
+    ):
         author = fdp_utils.get_first_entry(results)
+    else:
+        raise IndexError(f"list {results} empty")
     # Check user author exists
     if not author:
         raise ValueError(

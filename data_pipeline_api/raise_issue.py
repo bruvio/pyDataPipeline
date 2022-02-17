@@ -158,7 +158,7 @@ def raise_issue(
     namespace: str = None,
     group: bool = True,
 ) -> None:
-    current_group = issue + ":" + str(severity)
+    current_group = f'{issue}:' + str(severity)
     if issue_type in {
         "config",
         "submission_script",
